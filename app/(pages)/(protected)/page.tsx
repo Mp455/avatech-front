@@ -10,7 +10,7 @@ type User = {
   username: string;
 };
 
-export default function ProtectedPage() {
+export default function Home() {
   const [userAuth, setUserAuth] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const { push } = useRouter();
