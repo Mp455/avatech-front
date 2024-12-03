@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/navigation";
+import { api } from "@/middleware/auth";
 
 const FormSchema = z.object({
   email: z.string().email("Por favor, insira um e-mail válido").min(2, {
@@ -38,7 +38,7 @@ export default function LoginFormPage() {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      const response = await axios.post("http://localhost:3333/login", data);
+      const response = await api.post("/login", data);
 
       const token = response.data.token;
       localStorage.setItem("token", token);
