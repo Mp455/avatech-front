@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Avatech Auth Frontend
 
-## Getting Started
+Este é o frontend da aplicação **Avatech Auth**, responsável por fornecer a interface de autenticação de usuários, incluindo registro, login e acesso a rotas protegidas.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tecnologias Utilizadas
+
+- **Next.js**: Framework para React, utilizado para criar o frontend.
+- **TypeScript**: Linguagem de programação que adiciona tipagem estática ao JavaScript.
+- **Tailwind CSS**: Framework CSS para estilização.
+- **React Hook Form**: Biblioteca para gerenciamento de formulários e validação de campos.
+- **Axios**: Cliente HTTP para fazer requisições à API backend.
+- **JWT (JSON Web Tokens)**: Utilizado para autenticação e autorização de usuários.
+
+---
+
+## Instalação
+
+1. Clone o repositório.
+2. Navegue até o diretório do projeto.
+3. Instale as dependências do projeto.
+4. Inicie o servidor localmente.
+
+O frontend estará acessível em `http://localhost:3000`.
+
+---
+
+## Configuração de Ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto e adicione as variáveis de ambiente necessárias para se conectar ao backend:
+
+- **NEXT_PUBLIC_API_URL**: A URL do seu backend. Durante o desenvolvimento local, use `http://localhost:3333`. Para produção, use a URL do backend em ambiente de produção (ex: `https://avatech-backend.onrender.com`).
+
+---
+
+## Páginas e Funcionalidades
+
+### **Página de Registro (`/register.tsx`)**
+
+A página de registro permite que novos usuários se registrem no sistema. Ela coleta as informações do usuário e as envia para o backend.
+
+- **Campos**:
+  - Nome de usuário
+  - E-mail
+  - Senha
+
+A validação é feita utilizando **React Hook Form** e os dados são enviados para a API de registro do backend.
+
+### **Página de Login (`/login.tsx`)**
+
+A página de login permite que usuários registrados acessem suas contas. Ela solicita o e-mail e a senha para autenticação.
+
+- **Campos**:
+  - E-mail
+  - Senha
+
+Após a autenticação bem-sucedida, um token JWT é recebido e armazenado no **localStorage** para ser utilizado nas próximas requisições.
+
+### **Página Protegida (`/protected.tsx`)**
+
+Esta página é protegida e só pode ser acessada se o usuário estiver autenticado. Um token JWT válido deve ser enviado no cabeçalho da requisição para acessar esta página.
+
+---
+
+## Requisições à API
+
+### **Registro de Usuário**
+
+**POST** `/register`
+
+- **Body**:
+
+```json
+{
+  "username": "nome_do_usuario",
+  "email": "email_do_usuario",
+  "password": "senha_do_usuario"
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **Login de Usuário**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**POST** `/login`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Body**:
 
-## Learn More
+```json
+{
+  "email": "email_do_usuario",
+  "password": "senha_do_usuario"
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+### **Acesso a Página Protegida**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**GET** `/protected`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Body**:
 
-## Deploy on Vercel
+```json
+{
+  "email": "email_do_usuario",
+  "password": "senha_do_usuario"
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **Estilização com Tailwind CSS**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Este projeto utiliza o Tailwind CSS para estilização, um framework utilitário que permite aplicar classes diretamente no HTML para personalizar os estilos.
+
+Para mais informações sobre o uso do Tailwind, consulte a documentação oficial.
+
+## Deploy na Vercel
+
+O frontend da aplicação **Avatech Auth** foi implantado na Vercel, garantindo fácil acesso e escalabilidade. A Vercel oferece integração contínua e deploy automático sempre que alterações são feitas no repositório.
+
+A aplicação pode ser acessada através do seguinte link:
+
+- [https://avatech-front.vercel.app](https://avatech-front.vercel.app)
